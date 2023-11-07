@@ -1,0 +1,41 @@
+
+server:
+  port: 8084
+
+spring:
+  application:
+    name: API-GATEWAY
+
+
+  cloud:
+    gateway:
+      routes:
+        - id: med-thehappygate-flat-service
+          uri:  lb://med-thehappygate-flat-service
+          predicates:
+            - Path=/med-thehappygate-flat-service/**
+
+        - id: med-thehappygate-society-services
+          uri: lb://med-thehappygate-society-services
+          predicates:
+            - Path=/med-thehappygate-society-services/**
+
+
+
+
+eureka:
+  client:
+    enabled: false
+    service-url:
+      defaultZone: http://localhost:9090/med-thehappygate-eureka-server/eureka
+
+
+
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: false
+#    service-url:
+#      defaultZone: http://localhost:9090/eureka
